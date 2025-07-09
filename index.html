@@ -3,22 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>麻酔科専門医向けクイズ</title>
+    <title>麻酔科クイズ選択</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-selection-btn {
+            display: block;
+            width: 80%;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .quiz-selection-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>麻酔科専門医向けクイズ</h1>
-        <div id="quiz-container">
-            <div id="question-container">
-                <h2 id="question-text"></h2>
-                <div id="options-container">
-                </div>
-            </div>
-            <button id="next-btn" style="display: none;">次の問題へ</button>
-            <button id="finish-btn" style="display: none;">結果を見る</button>
+        <h1>麻酔科クイズ</h1>
+        <p>挑戦したいクイズを選択してください。</p>
+        <div id="quiz-selection-container">
+            <a href="general_quiz.html" class="quiz-selection-btn">麻酔科専門医向けクイズ</a>
+            <a href="cardiac_quiz.html" class="quiz-selection-btn">心臓麻酔専門医向けクイズ</a>
         </div>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
