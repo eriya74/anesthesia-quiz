@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     finishBtn.addEventListener('click', () => {
         localStorage.setItem('quizResults', JSON.stringify(userAnswers));
-        window.location.href = 'results.html';
+        window.location.href = 'c5_general_results.html';
     });
 
     loadQuestion();

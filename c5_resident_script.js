@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     finishBtn.addEventListener('click', () => {
         localStorage.setItem('residentQuizResults', JSON.stringify(userAnswers));
-        window.location.href = 'resident_results.html';
+        window.location.href = 'c5_resident_results.html';
     });
 
     loadQuestion();

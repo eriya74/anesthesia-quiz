@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     finishBtn.addEventListener('click', () => {
         localStorage.setItem('cardiacQuizResults', JSON.stringify(userAnswers));
-        window.location.href = 'cardiac_results.html';
+        window.location.href = 'c5_cardiac_results.html';
     });
 
     loadQuestion();
