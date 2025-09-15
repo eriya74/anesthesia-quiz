@@ -71,64 +71,77 @@ const quizData = [
     }
 ];
 
-const quizContainer = document.getElementById('quiz');
-const resultsContainer = document.getElementById('results');
-const submitButton = document.getElementById('submit');
+let currentQuestionIndex = 0;
+let userAnswers = [];
 
-function buildQuiz() {
-    const output = [];
-    quizData.forEach((currentQuestion, questionNumber) => {
-        const answers = [];
-        for (let i = 0; i < currentQuestion.options.length; i++) {
-            answers.push(
-                `<label>
-                    <input type="radio" name="question${questionNumber}" value="${i}">
-                    ${currentQuestion.options[i]}
-                </label>`
-            );
-        }
-        output.push(
-            `<div class="question"> ${currentQuestion.question} </div>
-            <div class="answers"> ${answers.join('')} </div>`
-        );
+const questionText = document.getElementById('question-text');
+const optionsContainer = document.getElementById('options-container');
+const nextBtn = document.getElementById('next-btn');
+const finishBtn = document.getElementById('finish-btn');
+
+function loadQuestion() {
+    const currentQuestion = quizData[currentQuestionIndex];
+    questionText.textContent = currentQuestion.question;
+    optionsContainer.innerHTML = '';
+
+    currentQuestion.options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option-btn');
+        button.addEventListener('click', () => selectAnswer(option, button));
+        optionsContainer.appendChild(button);
     });
-    quizContainer.innerHTML = output.join('');
+
+    nextBtn.style.display = 'none';
 }
 
-function showResults() {
-    const answerContainers = quizContainer.querySelectorAll('.answers');
+function selectAnswer(selectedOption, button) {
+    const buttons = optionsContainer.querySelectorAll('.option-btn');
+    buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === selectedOption) {
+            btn.classList.add('selected');
+        }
+    });
+
+    userAnswers[currentQuestionIndex] = selectedOption;
+
+    if (currentQuestionIndex < quizData.length - 1) {
+        nextBtn.style.display = 'block';
+    } else {
+        finishBtn.style.display = 'block';
+    }
+}
+
+nextBtn.addEventListener('click', () => {
+    currentQuestionIndex++;
+    loadQuestion();
+});
+
+finishBtn.addEventListener('click', () => {
     let score = 0;
-    const userAnswers = [];
-
-    quizData.forEach((currentQuestion, questionNumber) => {
-        const answerContainer = answerContainers[questionNumber];
-        const selector = `input[name=question${questionNumber}]:checked`;
-        const userAnswerNode = (answerContainer.querySelector(selector) || {});
-        const userAnswerIndex = parseInt(userAnswerNode.value);
-        const correctAnswerIndex = currentQuestion.options.indexOf(currentQuestion.answer);
-
-        userAnswers.push({
-            question: currentQuestion.question,
-            userAnswer: currentQuestion.options[userAnswerIndex],
-            correctAnswer: currentQuestion.answer,
-            explanation: currentQuestion.explanation,
-            page: currentQuestion.page,
-            isCorrect: userAnswerIndex === correctAnswerIndex
-        });
-
-        if (userAnswerIndex === correctAnswerIndex) {
+    const results = quizData.map((question, index) => {
+        const isCorrect = userAnswers[index] === question.answer;
+        if (isCorrect) {
             score++;
         }
+        return {
+            question: question.question,
+            userAnswer: userAnswers[index],
+            correctAnswer: question.answer,
+            explanation: question.explanation,
+            page: question.page,
+            isCorrect: isCorrect
+        };
     });
 
     localStorage.setItem('quizResults', JSON.stringify({
         score: score,
         total: quizData.length,
-        userAnswers: userAnswers
+        userAnswers: results
     }));
 
     window.location.href = 'c16_resident_results.html';
-}
+});
 
-buildQuiz();
-submitButton.addEventListener('click', showResults);
+loadQuestion();

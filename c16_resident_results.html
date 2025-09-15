@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter 16 クイズ結果 - 専攻医レベル</title>
+    <title>C16 - 麻酔認定医向けクイズ 結果</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Chapter 16 クイズ結果 - 専攻医レベル</h1>
-        <div id="score"></div>
-        <div id="results-details"></div>
-        <a href="chapter16_select.html" class="btn">レベル選択に戻る</a>
-        <a href="index.html" class="btn">トップに戻る</a>
+        <h1>Chapter16 - 麻酔認定医向けクイズ 結果</h1>
+        <div id="results-container">
+            <p>正答率: <span id="score-percentage"></span>%</p>
+            <p>正解数: <span id="score"></span> / <span id="total"></span></p>
+        </div>
+        <div id="answers-container"></div>
+        <a href="c16_resident_quiz.html" style="display: block; margin-top: 1rem;">もう一度挑戦する</a>
+        <a href="chapter16_select.html" style="display: block; margin-top: 1rem;">レベル選択に戻る</a>
+        <a href="index.html" style="display: block; margin-top: 1rem;">Chapter選択に戻る</a>
     </div>
     <script src="c16_resident_results.js"></script>
 </body>
